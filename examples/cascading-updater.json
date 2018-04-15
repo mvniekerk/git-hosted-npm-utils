@@ -1,0 +1,51 @@
+{
+    "maxCommands": 5,
+    "commands": {
+        "prepForBuild": [
+            {
+                "cmd": "rm package-lock.json",
+                "condition": "[ -f package-lock.json ]"
+            },
+            {
+                "cmd": "npm install"
+            },
+            {
+                "cmd": "npm run prep-peers",
+                "condition": "[[ ! -z `cat package.json | grep prep-peers` ]]"
+            }
+        ],
+        "build": [
+            {
+                "cmd": "npm run build"
+            },
+            {
+                "cmd": "npm run bundles"
+            }
+        ],
+        "versionAndPush": [
+            {
+                "cmd": "git add ."
+            },
+            {
+                "cmd": "git commit -m 'Auto package.json updates'",
+                "condition": "[[ ! -z `git status --porcelain`]]"
+            },
+            {
+                "cmd": "versionit bump"
+            },
+            {
+                "cmd": "git push --follow-tags"
+            }
+        ]
+    },
+    "modules": {
+        "git-hosted-npm-utils": {
+            "url": "git@github.com:mvniekerk/git-hosted-npm-utils.git",
+            "main": true,
+            "ignoreAheadOfMaster": true,
+            "commands": {
+                "build": []
+            }
+        }
+    }
+}

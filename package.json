@@ -7,9 +7,9 @@
     "url": "git@github.com:mvniekerk/git-hosted-npm-utils.git"
   },
   "bin": {
-    "cascading-git-update": "./npm-cascading-git-update.js"
+    "cascading-git-update": "./src/cascading-git-updater/npm-cascading-git-update.js"
   },
-  "author": "Michael van Niekerk <mvniekerk@gmail.com> https://twitter.com/chazaqdev"
+  "author": "Michael van Niekerk <mvniekerk@gmail.com> https://twitter.com/chazaqdev",
   "license": "Apache-2.0",
   "main": "npm-cascading-git-update.js",
   "scripts": {
