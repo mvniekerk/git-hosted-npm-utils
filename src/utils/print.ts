@@ -2,6 +2,13 @@ import {ModuleAndUrl} from '../domain/moduleAndUrl';
 const clear = require('clear');
 const colors = require("colors");
 
+colors.setTheme({
+    verbose: 'cyan',
+    info: 'green',
+    warn: 'yellow',
+    error: 'red'
+});
+
 export class Print {
     public static currentTotalRunning = 0;
 

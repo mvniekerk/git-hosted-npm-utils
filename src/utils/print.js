@@ -3,6 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var moduleAndUrl_1 = require("../domain/moduleAndUrl");
 var clear = require('clear');
 var colors = require("colors");
+colors.setTheme({
+    verbose: 'cyan',
+    info: 'green',
+    warn: 'yellow',
+    error: 'red'
+});
 var Print = /** @class */ (function () {
     function Print() {
     }
