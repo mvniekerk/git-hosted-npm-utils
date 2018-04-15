@@ -67,4 +67,12 @@ export class Git {
                 .do(s => console.log("Is package json changed:", mod.module, s))
         ]).map((val: boolean[]) => val.some(i => i));
     };
+
+    public static getVersionFromGitString = (ver: string): string => {
+        return ver.substring(ver.indexOf("#") + 1);
+    };
+
+    public static getGitRepoFromGitString = (ver: string): string => {
+        return ver.substring("git+ssh://".length, ver.indexOf("#"));
+    };
 }

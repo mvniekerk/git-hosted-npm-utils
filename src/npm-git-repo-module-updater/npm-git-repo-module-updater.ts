@@ -60,7 +60,6 @@ const dependencies = new Map<string, ModuleAndUrl>(
 );
 
 //Get all the values of the map
-// const values: ModuleAndUrl[] = <ModuleAndUrl[]>Object.keys(dependencies).map((a: string) => dependencies[a]);
 const values: ModuleAndUrl[] = Array.from(dependencies.values());
 
 const maxLength = values && values.length > 0 ? values.sort((a, b) => a.module.length > b.module.length ? -1 : 1)[0].module.length : 0;

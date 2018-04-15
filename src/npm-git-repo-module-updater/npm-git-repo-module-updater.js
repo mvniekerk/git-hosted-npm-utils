@@ -53,7 +53,6 @@ var dependencies = new Map(flatMap(function (depList) {
     return list;
 }, depLists));
 //Get all the values of the map
-// const values: ModuleAndUrl[] = <ModuleAndUrl[]>Object.keys(dependencies).map((a: string) => dependencies[a]);
 var values = Array.from(dependencies.values());
 var maxLength = values && values.length > 0 ? values.sort(function (a, b) { return a.module.length > b.module.length ? -1 : 1; })[0].module.length : 0;
 Rx_1.Observable.forkJoin(values.map(function (a) {

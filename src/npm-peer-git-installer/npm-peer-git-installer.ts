@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import {BehaviorSubject, Observable, Observer} from "rxjs/Rx";
+import {BehaviorSubject} from "rxjs/Rx";
 
 const exec = require('child_process');
 const fs = require("fs");
@@ -10,11 +10,14 @@ const clear = require('clear');
 const npm = require('enpeem');
 import {RunCommand} from '../utils/runCommand';
 import {Print} from '../utils/print';
+import {Git} from '../utils/gitOperations';
 
 const logi = Print.logi;
 const loge = Print.loge;
 const logv = Print.logv;
 const logw = Print.logw;
+const getVersionFromGitString = Git.getVersionFromGitString;
+const getGitRepoFromGitString = Git.getGitRepoFromGitString;
 
 colors.setTheme({
     verbose: 'cyan',
@@ -53,14 +56,6 @@ const printPackages = () => {
     packages.sort((a, b) => a.name > b.name ? 1 : -1).forEach(a => {
         logi(padRight(a.name, longestName) + "| " + padRight(a.loaded ? "Y" : a.handled ? "H" : " ", padFalse) + "| " + padRight(a.version, longestVersion) + "| " + padRight(a.git, longestGit));
     });
-};
-
-const getVersionFromGitString = (ver: string): string => {
-    return ver.substring(ver.indexOf("#") + 1);
-};
-
-const getGitRepoFromGitString = (ver: string): string => {
-    return ver.substring("git+ssh://".length, ver.indexOf("#"));
 };
 
 const installDependencies = () => {

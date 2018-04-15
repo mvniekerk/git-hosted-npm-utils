@@ -2,15 +2,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Rx_1 = require("rxjs/Rx");
-var exec = require('child_process');
 var fs = require("fs");
 var semver = require("semver");
 var commander = require("commander");
-var colors = require("colors");
 var clear = require('clear');
-var npm = require('enpeem');
-var runCommand_1 = require("../utils/runCommand");
 var print_1 = require("../utils/print");
+var runCommand_1 = require("../utils/runCommand");
 var gitOperations_1 = require("../utils/gitOperations");
 var logi = print_1.Print.logi;
 var loge = print_1.Print.loge;
@@ -18,26 +15,15 @@ var logv = print_1.Print.logv;
 var logw = print_1.Print.logw;
 var getVersionFromGitString = gitOperations_1.Git.getVersionFromGitString;
 var getGitRepoFromGitString = gitOperations_1.Git.getGitRepoFromGitString;
-colors.setTheme({
-    verbose: 'cyan',
-    info: 'green',
-    warn: 'yellow',
-    error: 'red'
-});
+var padRight = print_1.Print.padRight;
+var runCommand = runCommand_1.RunCommand.runCommand;
 commander
     .version('0.1.8')
     // .option('-a --all', 'Automatically update a git module regardless of version')
     .option('-p --print', 'Print packages when state changes')
     .parse(process.argv);
 var packages = [];
-var padRight = function (val, theMaxLength) {
-    var len = theMaxLength - val.length;
-    var pad = '';
-    while (len--) {
-        pad += ' ';
-    }
-    return val + pad;
-};
+runCommand_1.RunCommand.startListeningToCommands(5);
 var printPackages = function () {
     if (!commander.print) {
         return;
@@ -54,21 +40,53 @@ var printPackages = function () {
 var installDependencies = function () {
     var dependencies = packages.map(function (a) { return a.name + '@' + (!!a.git ? a.git : a.version); });
     logv("Dependencies:\n\t" + dependencies.join("\n\t"));
-    npm.install({
-        dir: "./",
-        dependencies: dependencies,
-        'cache-min': 999999999
-    }, function (e) {
-        if (e) {
-            loge("!!:", e);
-        }
-        else {
-            logi("Done");
-        }
+    fs.exists("ng-package.json", function (exists) {
+        (!exists
+            ?
+                Rx_1.Observable.merge(Rx_1.Observable.of("ng-package.json")
+                    .map(function (fn) {
+                    var template = '{\n' +
+                        '    "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",\n' +
+                        '    "lib": {\n' +
+                        '        "entryFile": "public_api.ts",\n' +
+                        '        "externals": {\n' +
+                        '        }\n' +
+                        '    }\n' +
+                        '}';
+                    fs.writeFileSync(fn, template);
+                    return "";
+                }), Rx_1.Observable.of("public_api.ts")
+                    .map(function (fn) {
+                    fs.writeFileSync(fn, "export * from './src/app/app.module';\n");
+                    return "";
+                })).last()
+            : Rx_1.Observable.of(""))
+            .mergeMap(function (a) { return runCommand("cat ng-package.json", "./"); })
+            .map(function (a) { return JSON.parse(a); })
+            .map(function (a) {
+            var lib = a['lib'];
+            if (!lib['externals']) {
+                lib['externals'] = {};
+            }
+            var externals = lib['externals'];
+            packages.forEach(function (p) {
+                if (!externals[p.name]) {
+                    externals[p.name] = p.name;
+                }
+                if (p.git && !externals[p.name + '/dist/' + p.name]) {
+                    externals[p.name + '/dist/' + p.name] = p.name + '/dist/' + p.name;
+                }
+                if (p.git && !externals[p.name + '/public_api']) {
+                    externals[p.name + '/public_api'] = p.name + '/dist/' + p.name;
+                }
+            });
+            return a;
+        })
+            .subscribe(function (a) { return fs.writeFileSync('ng-package.json', JSON.stringify(a, null, 4)); });
     });
 };
 var loadPackageJsonFromGit = function (repo, version) {
-    runCommand_1.RunCommand.runCommand("git archive --remote=" + repo + " " + version + " package.json | tar xfO - ", "./")
+    runCommand("git archive --remote=" + repo + " " + version + " package.json | tar xfO - ", "./")
         .subscribe(function (a) { return parsePackageJson(a); });
 };
 var loadPackageActor = new Rx_1.BehaviorSubject("");
@@ -86,7 +104,9 @@ loadPackageActor.subscribe(function (a) {
     loadPackageJsonFromGit(repo, version);
 });
 var parsePackageJson = function (json) {
-    clear();
+    if (commander.print) {
+        clear();
+    }
     printPackages();
     var val = JSON.parse(json);
     var me = packages.find(function (a) { return a.name == val["name"]; });
@@ -137,8 +157,10 @@ var parsePackageJson = function (json) {
     if (me) {
         me.loaded = true;
     }
-    installDependencies();
+    var count = packages.filter(function (a) { return !a.loaded || !a.handled; }).length;
+    if (count == 0) {
+        installDependencies();
+    }
 };
-runCommand_1.RunCommand.startListeningToCommands(5);
-runCommand_1.RunCommand.runCommand("cat package.json", "./").subscribe(function (a) { return parsePackageJson(a); });
-//# sourceMappingURL=npm-peer-git-installer.js.map
+runCommand("cat package.json", "./").subscribe(function (a) { return parsePackageJson(a); });
+//# sourceMappingURL=npm-peers-as-ng-externals.js.map

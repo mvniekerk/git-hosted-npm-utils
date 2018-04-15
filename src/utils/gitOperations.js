@@ -66,6 +66,12 @@ var Git = /** @class */ (function () {
         var cmd = "git rev-list -n 1 " + tag;
         return runCommand(cmd, dir, mod).map(function (a) { return a.trim(); });
     };
+    Git.getVersionFromGitString = function (ver) {
+        return ver.substring(ver.indexOf("#") + 1);
+    };
+    Git.getGitRepoFromGitString = function (ver) {
+        return ver.substring("git+ssh://".length, ver.indexOf("#"));
+    };
     return Git;
 }());
 exports.Git = Git;

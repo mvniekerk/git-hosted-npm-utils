@@ -9,9 +9,10 @@
   "bin": {
     "cascading-git-update": "src/cascading-git-updater/npm-cascading-git-update.js",
     "recursive-peer-deps": "src/npm-peer-git-installer/npm-peer-git-installer.js",
-    "updategitmodules": "src/npm-git-repo-module-updater/npm-git-repo-module-updater.js"
+    "updategitmodules": "src/npm-git-repo-module-updater/npm-git-repo-module-updater.js",
+    "peers-as-ng-externals": "src/npm-peers-as-ng-externals/npm-peers-as-ng-externals.js"
   },
-  "author": "Michael van Niekerk <mvniekerk@gmail.com> https://twitter.com/chazaqdev",
+  "author": "Michael van Niekerk <mvniekerk@gmail.com> (https://twitter.com/chazaqdev)",
   "license": "Apache-2.0",
   "main": "npm-cascading-git-update.js",
   "scripts": {
