@@ -1,0 +1,31 @@
+{
+  "name": "git-host-npm-utils",
+  "version": "0.3.0",
+  "description": "Set of utilities that assists in creating or using git hosted JS libraries",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mvniekerk/git-hosted-npm-utils.git"
+  },
+  "bin": {
+    "cascading-git-update": "./npm-cascading-git-update.js"
+  },
+  "author": "Michael van Niekerk <mvniekerk@gmail.com> https://twitter.com/chazaqdev"
+  "license": "Apache-2.0",
+  "main": "npm-cascading-git-update.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "clear": "0.0.1",
+    "colors": "1.1.2",
+    "commander": "2.9.0",
+    "exit-hook": "^1.1.1",
+    "inquirer": "1.2.2",
+    "rxjs": "5.5.0",
+    "semver": "5.3.0",
+    "versionit": "1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^2.5.3"
+  }
+}
