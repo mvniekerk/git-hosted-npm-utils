@@ -75,4 +75,8 @@ export class Git {
     public static getGitRepoFromGitString = (ver: string): string => {
         return ver.substring("git+ssh://".length, ver.indexOf("#"));
     };
+
+    public static loadPackageJsonFromGit = (repo: string, version: string) => {
+        return runCommand("git archive --remote=" + repo + " " + version + " package.json | tar xfO - ", "./")
+    };
 }
