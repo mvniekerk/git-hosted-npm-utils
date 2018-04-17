@@ -16,7 +16,8 @@
   "license": "Apache-2.0",
   "main": "npm-cascading-git-update.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "postInstall": "tsc"
   },
   "dependencies": {
     "clear": "0.0.1",
