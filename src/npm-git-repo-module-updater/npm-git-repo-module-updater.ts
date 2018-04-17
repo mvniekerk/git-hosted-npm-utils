@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import {Observable} from "rxjs/Rx";
 
 const fs = require("fs");

@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+//#!/usr/bin/env node
 import {Print} from "../utils/print";
 
 const fs = require("fs");

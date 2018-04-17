@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import {Observable, BehaviorSubject} from "rxjs/Rx";
 const fs = require("fs");
 const semver = require("semver");

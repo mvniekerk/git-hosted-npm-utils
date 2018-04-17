@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import {BehaviorSubject} from "rxjs/Rx";
 
 const semver = require("semver");

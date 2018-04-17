@@ -7,15 +7,16 @@
     "url": "git@github.com:mvniekerk/git-hosted-npm-utils.git"
   },
   "bin": {
-    "cascading-git-update": "bin/cascading-git-updater/npm-cascading-git-update.js",
-    "recursive-peer-deps": "bin/npm-peer-git-installer/npm-peer-git-installer.js",
-    "updategitmodules": "bin/npm-git-repo-module-updater/npm-git-repo-module-updater.js",
-    "peers-as-ng-externals": "bin/npm-peers-as-ng-externals/npm-peers-as-ng-externals.js"
+    "cascading-git-update": "bin/npm-cascading-git-update.js",
+    "recursive-peer-deps": "bin/npm-peer-git-installer.js",
+    "updategitmodules": "bin/npm-git-repo-module-updater.js",
+    "peers-as-ng-externals": "bin/npm-peers-as-ng-externals.js"
   },
   "author": "Michael van Niekerk <mvniekerk@gmail.com> (https://twitter.com/chazaqdev)",
   "license": "Apache-2.0",
   "scripts": {
-    "build": "tsc --outDir bin/"
+    "clean": "rm -rf bin/",
+    "build": "webpack --config webpack.config.js"
   },
   "dependencies": {
     "clear": "0.0.1",
@@ -32,6 +33,9 @@
     "versionit": "1.0.0"
   },
   "devDependencies": {
-    "typescript": "^2.5.3"
+    "ts-loader": "^4.2.0",
+    "typescript": "^2.5.3",
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14"
   }
 }
