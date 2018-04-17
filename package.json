@@ -7,10 +7,10 @@
     "url": "git@github.com:mvniekerk/git-hosted-npm-utils.git"
   },
   "bin": {
-    "cascading-git-update": "bin/npm-cascading-git-update.js",
-    "recursive-peer-deps": "bin/npm-peer-git-installer.js",
-    "updategitmodules": "bin/npm-git-repo-module-updater.js",
-    "peers-as-ng-externals": "bin/npm-peers-as-ng-externals.js"
+    "cascading-git-update": "bin/cascading-git-update.js",
+    "recursive-peer-deps": "bin/recursive-peer-deps.js",
+    "updategitmodules": "bin/updategitmodules.js",
+    "peers-as-ng-externals": "bin/peers-as-ng-externals.js"
   },
   "author": "Michael van Niekerk <mvniekerk@gmail.com> (https://twitter.com/chazaqdev)",
   "license": "Apache-2.0",
