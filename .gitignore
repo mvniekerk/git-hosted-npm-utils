@@ -18,3 +18,5 @@ npm-debug.log
 /output.txt
 atlassian-ide-plugin.xml
 /.ng_pkg_build
+
+src/**/*.js
