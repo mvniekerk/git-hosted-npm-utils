@@ -1,6 +1,6 @@
 {
   "name": "git-host-npm-utils",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Set of utilities that assists in creating or using git hosted JS libraries",
   "repository": {
     "type": "git",
