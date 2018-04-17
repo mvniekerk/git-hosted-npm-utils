@@ -17,7 +17,7 @@
   "main": "npm-cascading-git-update.js",
   "scripts": {
     "build": "tsc",
-    "postinstall": "postinstall-lib lib"
+    "postinstall": "postinstall-build --verbose lib"
   },
   "dependencies": {
     "clear": "0.0.1",
