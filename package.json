@@ -16,7 +16,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "tsc",
-    "postinstall": "postinstall-build --verbose lib"
+    "install": "postinstall-build --verbose lib"
   },
   "dependencies": {
     "clear": "0.0.1",
