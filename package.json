@@ -17,7 +17,7 @@
   "main": "npm-cascading-git-update.js",
   "scripts": {
     "build": "tsc",
-    "install": "tsc"
+    "postinstall": "postinstall-lib lib"
   },
   "dependencies": {
     "clear": "0.0.1",
@@ -27,6 +27,7 @@
     "exit-hook": "^1.1.1",
     "git-state": "3.1.0",
     "inquirer": "1.2.2",
+    "postinstall-build": "^5.0.1",
     "rxjs": "5.5.0",
     "semver": "5.3.0",
     "semver-diff": "^2.1.0",
