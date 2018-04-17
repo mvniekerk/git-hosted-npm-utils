@@ -17,7 +17,7 @@
   "main": "npm-cascading-git-update.js",
   "scripts": {
     "build": "tsc",
-    "install": "tsc",
+    "install": "tsc"
   },
   "dependencies": {
     "clear": "0.0.1",
